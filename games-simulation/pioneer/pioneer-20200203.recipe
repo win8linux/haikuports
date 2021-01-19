@@ -1,0 +1,67 @@
+SUMMARY="Space sim set in the 33rd century Milky Way galaxy"
+DESCRIPTION="Pioneer is a space adventure game set in our galaxy at the turn of \
+the 33rd century.
+
+The game is open-ended, and you are free to explore the millions of star systems\
+ in the game. You can land on planets, slingshot past gas giants, and burn \
+yourself to a crisp flying between binary star systems. You can try your hand at\
+ piracy, make your fortune trading between systems, or do missions for the \
+various factions fighting for power, freedom or self-determination.
+"
+HOMEPAGE="http://pioneerspacesim.net/"
+COPYRIGHT="2008-2020 Pioneer Developers"
+LICENSE="GNU GPL v3"
+REVISION="1"
+srcGitTag="20200203"
+SOURCE_URI="https://github.com/pioneerspacesim/pioneer/archive/$srcGitTag.tar.gz"
+CHECKSUM_SHA256="3055d63c1bd3377c3794eee830a8adbd650b178bad9e927531e38cb5d5838694"
+SOURCE_FILENAME="pioneer-$portVersion-tar.gz"
+SOURCE_DIR="pioneer-$srcGitTag"
+
+ARCHITECTURES="!x86_gcc2 x86 x86_64"
+SECONDARY_ARCHITECTURES="x86"
+
+PROVIDES="
+	pioneer$secondaryArchSuffix = $portVersion
+	app:Pioneer$secondaryArchSuffix = $portVersion
+	"
+REQUIRES="
+	haiku$secondaryArchSuffix
+	cmd:lua$secondaryArchSuffix
+	lib:assimp$secondaryArchSuffix
+	lib:libfreeimage$secondaryArchSuffix
+	lib:libglew$secondaryArchSuffix
+	lib:libSDL2_2.0$secondaryArchSuffix
+	lib:libSDL2_image_2.0$secondaryArchSuffix
+	lib:libsigc++$secondaryArchSuffix
+	lib:libvorbis$secondaryArchSuffix
+	"
+BUILD_REQUIRES="
+	haiku${secondaryArchSuffix}_devel
+	devel:libassimp$secondaryArchSuffix
+	devel:libfreeimage$secondaryArchSuffix
+	devel:libglew$secondaryArchSuffix
+	devel:libSDL2_2.0$secondaryArchSuffix
+	devel:libSDL2_image_2.0$secondaryArchSuffix
+	devel:libsigc++$secondaryArchSuffix
+	devel:libvorbis$secondaryArchSuffix
+
+	"
+BUILD_PREREQUIRES="
+	cmd:g++$secondaryArchSuffix
+	cmd:make
+	cmd:cmake
+	"
+
+BUILD()
+{
+	./bootstrap
+	make -C build -j
+	make -C build/ build-data						## Precompile model files for faster loading
+}
+
+INSTALL()
+{
+	mkdir $appsDir
+	mv ./pioneer $appsDir/pioneer
+}
