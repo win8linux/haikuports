@@ -1,0 +1,72 @@
+SUMMARY="Barony is a first-person action role-playing game with several roguelike elements."
+DESCRIPTION="Barony is a 3D, first-person roguelike. The goal of the game is \
+to descend to the bottom of a dark dungeon known as the Devil's Bastion and \
+destroy an undead lich named Baron Herx, who terrorized the peaceful town of \
+Hamlet in life and is now harboring a curse against the land from beyond the \
+grave. To aid you in your quest are friendly humans who have been eeking out \
+a rough life within the dungeon for generations, as well as any friends you \
+can bring with you in real life: Barony is the first of its kind as a \
+first-person roguelike in that it fully supports cooperative multiplayer for \
+up to four players."
+
+HOMEPAGE="http://www.baronygame.com/"
+COPYRIGHT="Turning Wheel LLC 2016-2020"
+LICENSE="GNU GPL v3"
+REVISION="1"
+srcGitRev="ce6ce86456453beeb31f136857ef1fc7bdca1ada"
+SOURCE_URI="https://github.com/TurningWheel/Barony/$srcGitRev.tar.gz"
+CHECKSUM_SHA256="9ee61acd1d3756cee26c442e7df3a5a3607ca609e350a2c23ca09a46c388877e"
+SOURCE_DIR="barony-$srcGitRev"
+
+ARCHITECTURES="!x86_gcc2 x86_64 ?x86"
+SECONDARY_ARCHITECTURES="x86"
+
+PROVIDES="
+	barony$secondaryArchSuffix = $portVersion
+	app:barony = $portVersion
+	"
+REQUIRES="
+	haiku$secondaryArchSuffix
+	lib:libSDL2_2.0$secondaryArchSuffix
+	lib:libSDL2_image_2.0$secondaryArchSuffix
+	lib:libSDL2_net_2.0$secondaryArchSuffix
+	lib:libSDL2_ttf_2.0$secondaryArchSuffix
+	lib:libphysfs_3.0$secondaryArchSuffix
+	lib:libpng16$secondaryArchSuffix
+	lib:libtremorsecondaryArchSuffix
+	lib:libz$secondaryArchSuffix
+	lib:libexecinfo$secondaryArchSuffix
+	rapidjson$secondaryArchSuffix
+	"
+
+BUILD_REQUIRES="
+	haiku${secondaryArchSuffix}_devel
+	devel:libSDL2_2.0$secondaryArchSuffix
+	devel:libSDL2_image_2.0$secondaryArchSuffix
+	devel:libSDL2_net_2.0$secondaryArchSuffix
+	devel:libSDL2_ttf_2.0$secondaryArchSuffix
+	devel:libphysfs_3.0$secondaryArchSuffix
+	devel:libpng16$secondaryArchSuffix
+	devel:libtremor$secondaryArchSuffix
+	devel:libz%secondaryArchSuffix
+	devel:libexecinfo$secondaryArchSuffix
+	rapidjson$secondaryArchSuffix
+	"
+BUILD_PREREQUIRES="
+	cmd:cmake
+	cmd:gcc$secondaryArchSuffix
+	cmd:make
+	"
+
+BUILD()
+{
+	cmake ./ -DTREMOR_ENABLED=ON -DSDL2_INCLUDE_DIR=/boot/system/develop/headers/SDL2 -DSDL2_TTF_INCLUDE_DIR=/boot/system/develop/headers/SDL2 -DSDL2_NET_INCLUDE_DIR=/boot/system/develop/headers/SDL2 -DSDL2_IMAGE_INCLUDE_DIR=/boot/system/develop/headers/SDL2
+	make $jobArgs
+}
+
+INSTALL()
+{
+	mkdir -p $appsDir/barony
+	cp . $appsDir/barony
+	addAppDeskbarSymlink $appsDir/barony/barony
+}
