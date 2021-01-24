@@ -26,13 +26,13 @@ PROVIDES="
 REQUIRES="
 	haiku$secondaryArchSuffix
 	lib:libuv$secondaryArchSuffix
-	lib:hwloc$secondaryArchSuffix
+	lib:libhwloc$secondaryArchSuffix
 	"
 BUILD_REQUIRES="
 	haiku${secondaryArchSuffix}_devel
 	devel:libcrypto$secondaryArchSuffix
 	devel:libuv$secondaryArchSuffix
-	devel:hwloc$secondaryArchSuffix
+	devel:libhwloc$secondaryArchSuffix
 	"
 BUILD_PREREQUIRES="
 	cmd:cmake
@@ -42,7 +42,8 @@ BUILD_PREREQUIRES="
 
 BUILD()
 {
-	mkdir xmrig/build && cd xmrig/build
+	pwd
+	mkdir -p ./build && cd ./build
 	cmake -DWITH_OPENCL=OFF -DWITH_CUDA=OFF ..
 	make -j
 }
