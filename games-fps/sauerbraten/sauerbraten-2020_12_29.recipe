@@ -1,0 +1,63 @@
+SUMMARY="FPS that uses an improved version of the Cube engine"
+DESCRIPTION="Cube 2: Sauerbraten is a free multiplayer & singleplayer first \
+person shooter, the successor of the Cube FPS.
+
+Much like the original Cube, the aim of this game is fun, old school \
+deathmatch gameplay and also to allow map/geometry editing to be done \
+cooperatively in-game."
+HOMEPAGE="http://sauerbraten.org/"
+COPYRIGHT="2001-2020 Woulter van Oortmerssen"
+LICENSE="Zlib"
+REVISION="1"
+SOURCE_URI="https://downloads.sourceforge.net/sauerbraten/sauerbraten_${portVersion}_linux.tar.bz2"
+CHECKSUM_SHA256="cdba7c4a47cefd30d0afdd6a912199a1384319cf1619923cb7189e72e468be70"
+SOURCE_DIR="sauerbraten"
+
+ARCHITECTURES="all x86_64"
+SECONDARY_ARCHITECTURES="x86"
+
+PROVIDES="
+	sauerbraten$secondaryArchSuffix = $portVersion
+	app:sauerbraten = $portVersion
+	"
+REQUIRES="
+	haiku$secondaryArchSuffix
+	lib:libGLU$secondaryArchSuffix
+	lib:libjpeg$secondaryArchSuffix
+	lib:libpng$secondaryArchSuffix
+	lib:libSDL2_2.0$secondaryArchSuffix
+	lib:libSDL2_mixer_2.0$secondaryArchSuffix
+	lib:libSDL2_image_2.0$secondaryArchSuffix
+	lib:libz$secondaryArchSuffix
+	"
+
+BUILD_REQUIRES="
+	haiku${secondaryArchSuffix}_devel
+	devel:libGLU$secondaryArchSuffix
+	devel:libjpeg$secondaryArchSuffix
+	devel:libpng$secondaryArchSuffix
+	devel:libSDL2_2.0$secondaryArchSuffix
+	devel:libSDL2_mixer_2.0$secondaryArchSuffix
+	devel:libSDL2_image_2.0$secondaryArchSuffix
+	devel:libz$secondaryArchSuffix
+	"
+BUILD_PREREQUIRES="
+	cmd:gcc$secondaryArchSuffix
+	cmd:make
+	"
+
+BUILD()
+{
+	cd src/
+	make client $jobArgs
+}
+
+INSTALL()
+{
+	mkdir -p $appsDir/sauerbraten
+	cp bin_unix/native_client $appsDir/sauerbraten/bin_unix/
+	cp data $appsDir/sauerbraten/
+	cp desktop_version/flibitBuild/VVVVVV $appsDir/vvvvvv
+
+	addAppDeskbarSymlink $appsDir/sauerbraten/sauerbraten
+}
