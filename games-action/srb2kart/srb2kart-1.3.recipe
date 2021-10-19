@@ -1,0 +1,62 @@
+SUMMARY="Kart racing mod of Sonic Robo Blasst 2"
+DESCRIPTION="Sonic Robo Blast 2 Kart (usually shortened to SRB2Kart or \
+SRB2K) is a kart racing game with Sonic-themed characters, items and \
+race tracks. SRB2Kart features over 100 maps for two game modes: the \
+main Race mode and a Battle mode where players fight each other using \
+the items available in the game."
+HOMEPAGE="https://wiki.srb2.org/wiki/SRB2Kart/"
+COPYRIGHT="2018-2020 Kart Krew"
+LICENSE="GNU GPL v2"
+REVISION="1"
+SOURCE_URI="https://git.do.srb2.org/KartKrew/Kart-Public/-/archive/v${portVersion}/Kart-Public-v${portVersion}.tar.gz"
+CHECKSUM_SHA256="cae9280addf2273328c778c181be33a7bee9900976d2fa4ac8c8988a79e6d704"
+SOURCE_DIR="Kart-Public-v$portVersion"
+
+ARCHITECTURES="all !x86_gcc2 x86_64"
+SECONDARY_ARCHITECTURES="?x86"
+
+PROVIDES="
+	srb2kart$secondaryArchSuffix = $portVersion
+	app:srb2kart = $portVersion
+	app:kart = $portVersion
+	"
+REQUIRES="
+	haiku$secondaryArchSuffix
+	lib:libexecinfo$secondaryArchSuffix
+	lib:libcurl$secondaryArchSuffix
+	lib:libpng$secondaryArchSuffix
+	lib:libSDL2_2.0$secondaryArchSuffix
+	lib:libSDL2_mixer_2.0$secondaryArchSuffix
+	lib:libz$secondaryArchSuffix
+	"
+
+BUILD_REQUIRES="
+	haiku${secondaryArchSuffix}_devel
+	devel:libexecinfo$secondaryArchSuffix
+	devel:libcurl$secondaryArchSuffix
+	devel:libpng$secondaryArchSuffix
+	devel:libSDL2_2.0$secondaryArchSuffix
+	devel:libSDL2_mixer_2.0$secondaryArchSuffix
+	devel:libz$secondaryArchSuffix
+	"
+BUILD_PREREQUIRES="
+	cmd:cmake
+	cmd:git
+	cmd:gcc$secondaryArchSuffix
+	cmd:make
+	cmd:pkg_config
+	"
+
+BUILD()
+{
+	cd src
+	make HAIKU=1 $jobArgs
+}
+
+INSTALL()
+{
+	mkdir -p $appsDir/srb2
+	cp bin/SDL/lsdlsrb2kart $appsDir/srb2kart
+
+	addAppDeskbarSymlink $appsDir/srb2kart/lsdlsrb2kart "Sonic Robo Blast 2 Kart"
+}
