@@ -1,0 +1,46 @@
+SUMMARY="Flash storage checker"
+DESCRIPTION="f3 is a simple tool that tests flash cards capacity \
+and performance to see if they live up to claimed specifications. It fills \
+the device with pseudorandom data and then checks if it returns the same on \
+reading.
+
+F3 stands for Fight Flash Fraud, or Fight Fake Flash."
+HOMEPAGE="https://github.com/AltraMayor/f3"
+COPYRIGHT="2011-2020 Michael Mayor and contributors"
+LICENSE="GNU GPL v3"
+REVISION="1"
+SOURCE_URI="https://github.com/AltraMayor/f3/archive/v$portVersion.tar.gz"
+CHECKSUM_SHA256="fb5e0f3b0e0b0bff2089a4ea6af53278804dfe0b87992499131445732e311ab4"
+SOURCE_FILENAME="f3-$portVersion.tar.gz"
+SOURCE_DIR="f3-$portVersion"
+
+ARCHITECTURES="all !x86_gcc2"
+SECONDARY_ARCHITECTURES="x86"
+
+PROVIDES="
+	f3$secondaryArchSuffix = $portVersion
+	cmd:f3write = $portVersion
+	cmd:f3read = $portVersion
+	"
+REQUIRES="
+	haiku$secondaryArchSuffix
+	"
+
+BUILD_REQUIRES="
+	haiku${secondaryArchSuffix}_devel
+	"
+BUILD_PREREQUIRES="
+	cmd:gcc$secondaryArchSuffix
+	cmd:make
+	cmd:pkg_config$secondaryArchSuffix
+	"
+
+BUILD()
+{
+	make $jobArgs
+}
+
+INSTALL()
+{
+	make install
+}
