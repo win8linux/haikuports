@@ -1,0 +1,75 @@
+SUMMARY="Three-dimensional falling blocks game"
+DESCRIPTION="BlockOut® II is a free adaptation of the original BlockOut® DOS \
+game edited by California Dreams in 1989. BlockOut® II has the same features \
+as the original game with few graphic improvements. The game has been designed\
+ to reproduce the original game kinematics as accurately as possible. The \
+score calculation is also nearly similar to the original.
+
+BlockOut® II also features an online score database where you can upload your \
+high-scores with their replays and get various statistics. The score \
+registering system also includes an efficient fake score detection."
+HOMEPAGE="http://www.blockout.net/blockout2/"
+COPYRIGHT="2007 Jean-Luc Pons"
+LICENSE="GNU GPL v1"
+REVISION="1"
+SOURCE_URI="http://downloads.sourceforge.net/project/blockout/blockout/BlockOut%202.5/bl25-src.tar.gz"
+CHECKSUM_SHA256="3abf61c4a7bd921988596a2239d76a5800fc94d8fd84dcc82c720d4d4f84cf0f"
+SOURCE_DIR="BL_SRC"
+ADDITIONAL_FILES="blockout2.rdef.in"
+
+ARCHITECTURES="all !x86_gcc2"
+SECONDARY_ARCHITECTURES="x86"
+
+PROVIDES="
+	blockout2$secondaryArchSuffix = $portVersion
+	app:blockout2 = $portVersion
+	"
+REQUIRES="
+	haiku$secondaryArchSuffix
+	lib:libGL$secondaryArchSuffix
+	lib:libGLU$secondaryArchSuffix
+	lib:libpng16$secondaryArchSuffix
+	lib:libSDL_1.2$secondaryArchSuffix
+	lib:libSDL_mixer_1.2$secondaryArchSuffix
+	lib:libXext$secondaryArchSuffix
+	"
+
+BUILD_REQUIRES="
+	haiku${secondaryArchSuffix}_devel
+	devel:libGL$secondaryArchSuffix
+	devel:libGLU$secondaryArchSuffix
+	devel:libpng16$secondaryArchSuffix
+	devel:libSDL_1.2$secondaryArchSuffix
+	devel:libSDL_mixer_1.2$secondaryArchSuffix
+	devel:libXext$secondaryArchSuffix
+	"
+BUILD_PREREQUIRES="
+	cmd:gcc$secondaryArchSuffix
+	cmd:make
+	"
+
+BUILD()
+{
+	cd ImageLib/src
+	make $jobArgs
+	cd ../../BlockOut
+	make $jobArgs
+}
+
+INSTALL()
+{
+	mkdir -p $appsDir/blockout2
+	cp Blockout/blockout $appsDir/blockout2
+
+	local APP_SIGNATURE="application/x-vnd.blockout2"
+	local MAJOR="`echo "$portVersion" | cut -d. -f1`"
+	local LONG_INFO="$SUMMARY"
+	sed \
+		-e "s|@APP_SIGNATURE@|$APP_SIGNATURE|" \
+		-e "s|@MAJOR@|$MAJOR|" \
+		-e "s|@LONG_INFO@|$LONG_INFO|" \
+		$portDir/additional-files/blockout2.rdef.in > $sourceDir/blockout2.rdef
+	addResourcesToBinaries $sourceDir/blockout2.rdef $appsDir/blockout2/blockout
+
+	addAppDeskbarSymlink $appsDir/blockout2/blockout "BlockOut® II"
+}
