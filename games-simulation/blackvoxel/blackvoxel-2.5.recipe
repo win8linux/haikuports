@@ -71,6 +71,7 @@ BUILD_REQUIRES="
 	devel:libsquirrel$secondaryArchSuffix
 	"
 BUILD_PREREQUIRES="
+	cmd:getconf
 	cmd:gcc$secondaryArchSuffix
 	cmd:make
 	cmd:pkg_config$secondaryArchSuffix
@@ -82,6 +83,12 @@ PATCHES="
 
 BUILD()
 {
+	if [ $effectiveTargetArchitecture = x86 ]; then
+		export CPU_BITS=32
+	else
+		export CPU_BITS=64
+	fi
+
 	make BV_DATA_LOCATION_DIR='finddir B_SYSTEM_DATA_DIRECTORY'/blackvoxel $jobArgs
 }
 
