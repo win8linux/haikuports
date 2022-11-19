@@ -1,0 +1,44 @@
+From 21e9655a21e310b6c9b203163b61e935996d8c0e Mon Sep 17 00:00:00 2001
+From: "Julius C. Enriquez" <win8linux@gmail.com>
+Date: Sat, 19 Nov 2022 05:26:00 +0800
+Subject: Add Haiku support
+
+
+diff --git a/Makefile b/Makefile
+index 3e5933a..aa56474 100644
+--- a/Makefile
++++ b/Makefile
+@@ -73,6 +73,10 @@ else
+   else ifeq ($(KERNELNAME), Darwin)
+     CXXFLAGS+= -O3 -c -fmessage-length=0
+     LDFLAGS+=-s -L"src/sc_Squirrel3/lib" -L"/usr/local/Cellar/glew" -L"/usr/local/Cellar/sdl" -I"/usr/local/Cellar/glew" -I"/usr/local/Cellar/sdl" -framework Cocoa -framework OpenGL -lSDLmain -lSDL -lGLEW -lsquirrel -lsqstdlib
++  else ifeq ($(KERNELNAME), Haiku)
++    # To be done...
++    CXXFLAGS+= -O3 -c -fmessage-length=0
++    LDFLAGS+=-s -L"src/sc_Squirrel3/lib" -lGLU -lSDL -lGLEW -lGL -lsquirrel -lsqstdlib
+   else
+     # Unknow kernel... trying default flags
+     CXXFLAGS+= -O3 -c -fmessage-length=0
+diff --git a/src/ACompileSettings.h b/src/ACompileSettings.h
+index 20c31c9..ab8e820 100644
+--- a/src/ACompileSettings.h
++++ b/src/ACompileSettings.h
+@@ -171,6 +171,15 @@
+   #define COMPILEOPTION_DATAFILESPATH ""
+   #define COMPILEOPTION_WINXPTIMECOMPUTING 0
+ 
++// Haiku
++
++#elif __HAIKU__
++
++  #define COMPILEOPTION_SAVEFOLDERNAME "Blackvoxel"
++  #define COMPILEOPTION_USEHOMEDIRSTORAGE 1
++  #define COMPILEOPTION_DATAFILESPATH "/boot/system/data/blackvoxel"
++  #define COMPILEOPTION_WINXPTIMECOMPUTING 0
++
+ #endif
+ 
+ // *************** RASPBERRY PI 2/3/4 SPECIAL SUPPORT *************************
+-- 
+2.37.3
+
