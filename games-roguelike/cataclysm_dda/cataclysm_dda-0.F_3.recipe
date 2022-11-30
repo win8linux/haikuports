@@ -1,0 +1,74 @@
+SUMMARY="A turn-based survival game set in a post-apocalyptic world"
+DESCRIPTION="Cataclysm: Dark Days Ahead is a turn-based survival game set \
+in a post-apocalyptic world. Struggle to survive in a harsh, persistent, \
+procedurally generated world. Scavenge the remnants of a dead civilization for \
+food, equipment, or, if you are lucky, a vehicle with a full tank of gas to \
+get you the hell out of Dodge. Fight to defeat or escape from a wide variety \
+of powerful monstrosities, from zombies to giant insects to killer robots and \
+things far stranger and deadlier, and against the others like yourself, that \
+want what you have…
+
+It is a continuation of Whale's original Cataclysm, which expands it with \
+numerous new creatures, buildings, gameplay mechanics and many other features."
+HOMEPAGE="https://cataclysmdda.org/"
+COPYRIGHT="2013-2021 Cataclysm-DDA developers"
+LICENSE="GNU GPL v3"
+REVISION="1"
+SOURCE_URI="https://github.com/CleverRaven/Cataclysm-DDA/archive/${portVersion/\F_3/F-3}.tar.gz"
+CHECKSUM_SHA256="5cde334df76f80723532896a995304fd789cc7207172dd817960ffdbb46d87a4"
+SOURCE_DIR="Cataclysm-DDA-${portVersion/\F_3/F-3}"
+
+ARCHITECTURES="all !x86_gcc2"
+SECONDARY_ARCHITECTURES="x86"
+
+PROVIDES="
+	cataclysm_dda$secondaryArchSuffix = $portVersion
+	app:cataclysm = $portVersion
+	app:cataclysm_dda = $portVersion
+	"
+REQUIRES="
+	haiku$secondaryArchSuffix
+	cmd:gettext$secondaryArchSuffix
+	lib:libbz2$secondaryArchSuffix
+	lib:libfreetype$secondaryArchSuffix
+	lib:libiconv$secondaryArchSuffix
+	lib:libintl$secondaryArchSuffix
+	lib:libSDL2_2.0$secondaryArchSuffix
+	lib:libSDL2_image_2.0$secondaryArchSuffix
+	lib:libSDL2_mixer_2.0$secondaryArchSuffix
+	lib:libSDL2_ttf_2.0$secondaryArchSuffix
+	lib:libz$secondaryArchSuffix
+	"
+
+BUILD_REQUIRES="
+	haiku${secondaryArchSuffix}_devel
+	devel:libgettextlib$secondaryArchSuffix
+	devel:libbz2$secondaryArchSuffix
+	devel:libfreetype$secondaryArchSuffix
+	devel:libiconv$secondaryArchSuffix
+	devel:libintl$secondaryArchSuffix
+	devel:libSDL2_2.0$secondaryArchSuffix
+	devel:libSDL2_image_2.0$secondaryArchSuffix
+	devel:libSDL2_mixer_2.0$secondaryArchSuffix
+	devel:libSDL2_ttf_2.0$secondaryArchSuffix
+	devel:libz$secondaryArchSuffix
+	"
+BUILD_PREREQUIRES="
+	cmd:cmake
+	cmd:gcc$secondaryArchSuffix
+	cmd:make
+	cmd:pkg_config$secondaryArchSuffix
+	cmd:zip
+	"
+
+BUILD()
+{
+	make RELEASE=1 TILES=1 SOUND=1 CCACHE=1 LTO=1 USE_XDG_DIR=1 $jobArgs
+}
+
+INSTALL()
+{
+	mkdir -p $appsDir
+	make install
+	addAppDeskbarSymlink $appsDir/sais/strange "SAIS"
+}
