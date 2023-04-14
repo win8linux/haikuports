@@ -1,0 +1,126 @@
+SUMMARY="C++20 FOSS clone of Super Hexagon"
+DESCRIPTION="Four buttons, one goal: survive.
+
+Are you ready for a real challenge? -- Become the best and climb the \
+leaderboards in Open Hexagon, a fast-paced adrenalinic arcade game that's \
+easy to learn but hard to master!
+
+There are four main actions you can perform: rotate clockwise, rotate \
+counter-clockwise, swap by 180° degrees, and focus.
+
+Simplicity and minimalism are key features of Open Hexagon. While some \
+levels might have special quirks and mechanics, the goal is always the \
+same: survive as long as possible.
+
+Open Hexagon is an officially-endorsed open-source clone of the hit 2012 \
+indie video game Super Hexagon from VVVVVV creator Terry Cavanagh. The\
+game takes design cues from the original and expands upon it by \
+introducing a 180° swap, curving/accelerating walls, scripting, and much \
+more.
+
+Open Hexagon was developed with the goal of being open. Players can \
+create their own custom levels by using the simple yet immensely powerful \
+Lua scripting language.
+
+NOTE: This package does not include music from the Steam version."
+HOMEPAGE="https://openhexagon.org/"
+COPYRIGHT="2021-2023 Vittorio Romeo"
+LICENSE="AFL v3.0"
+REVISION="1"
+
+srcGitRev="f42c0404c3355b89e17986096ab2186a174535af"
+SOURCE_URI="https://github.com/vittorioromeo/SSVOpenHexagon/archive/$srcGitRev.tar.gz"
+CHECKSUM_SHA256="c88bba659f59e6e49b866c75201889c9ed62ea1fc27b83ae93d2e4146fa6f277"
+SOURCE_DIR="SSVOpenHexagon-$srcGitRev"
+
+srcGitRev2="f2a75d1e34f5de352d5e38cdef4002b60a59c193"
+SOURCE_URI_2="https://github.com/vittorioromeo/SSVMenuSystem/archive/$srcGitRev2.zip"
+CHECKSUM_SHA256_2="12a4b23f5558b880b71dde347579de17d9e3aacc2157dcc437346bceb2eae3e9"
+srcGitRev3="6200143d3f65acc90927936531ad50eff63d0d80"
+SOURCE_URI_3="https://github.com/vittorioromeo/SSVUtils/archive/$srcGitRev3.zip"
+CHECKSUM_SHA256_3="4793e0ff177a4a88ce9e5007bd24abe2b6f59b55fd246754df1772598ecc221d"
+srcGitRev4="3c1bd66874c4321fbf60a2dbd3f2738713f481ea"
+SOURCE_URI_4="https://github.com/vittorioromeo/vrm_cmake/archive/$srcGitRev4.zip"
+CHECKSUM_SHA256_4="343a0c494b1f2eb9fbd5e0e13afea8351979a797965354aea409ad4eb36b4435"
+srcGitRev5="6df8c85518cbde1d6c0177cd78b367589ace89b6"
+SOURCE_URI_5="https://github.com/vittorioromeo/SSVCMake/archive/$srcGitRev5.zip"
+CHECKSUM_SHA256_5="cd7e45452b55d0d286d9bfa6c0258b9d9c8a010acfbcf5d3afb2c7d8182138da"
+srcGitRev6="6cc7cb838fe9e40835982f0eb59e7162a507e0de"
+SOURCE_URI_6="https://github.com/vittorioromeo/SSVStart/archive/$srcGitRev6.zip"
+CHECKSUM_SHA256_6="72d4b75fa5d3a391ec6129304facfcde612b8b91d8437a40d68424269b6b39dc"
+srcGitRev7="d14dbb0486e2d0755443c333bb56aabe11079e3f"
+SOURCE_URI_7="https://github.com/vittorioromeo/vrm_pp/archive/$srcGitRev7.zip"
+CHECKSUM_SHA256_7="29845a9ef0af29c25e02ff6b581adb4a9e5171dcc6a87626d1dc0f4ea63a2d6d"
+
+ARCHITECTURES="all !x86_gcc2"
+SECONDARY_ARCHITECTURES="x86"
+
+PROVIDES="
+	open_hexagon$secondaryArchSuffix = $portVersion
+	app:open_hexagon = $portVersion
+	"
+REQUIRES="
+	haiku$secondaryArchSuffix
+	lib:libfreetype$secondaryArchSuffix
+	lib:libGL$secondaryArchSuffix
+	lib:libluajit_5.1$secondaryArchSuffix
+	lib:libogg$secondaryArchSuffix
+	lib:libopenal$secondaryArchSuffix
+	lib:libvorbis$secondaryArchSuffix
+	lib:libvorbisenc$secondaryArchSuffix
+	lib:libvorbisfile$secondaryArchSuffix
+	open_hexagon_data
+	"
+
+BUILD_REQUIRES="
+	haiku${secondaryArchSuffix}_devel
+	devel:libfreetype$secondaryArchSuffix
+	devel:libGL$secondaryArchSuffix
+	devel:libluajit_5.1$secondaryArchSuffix
+	devel:libopenal$secondaryArchSuffix
+	devel:libogg$secondaryArchSuffix
+	devel:libvorbis$secondaryArchSuffix
+	devel:libvorbisenc$secondaryArchSuffix
+	devel:libvorbisfile$secondaryArchSuffix
+	"
+BUILD_PREREQUIRES="
+	cmd:cmake
+	cmd:gcc$secondaryArchSuffix
+	cmd:git
+	cmd:make
+	"
+
+BUILD()
+{
+	cp -rf $sourceDir2/SSVMenuSystem-$srcGitRev2/* $sourceDir/extlibs/SSVMenuSystem/
+	cp -rf $sourceDir3/SSVUtils-$srcGitRev3/* $sourceDir/extlibs/SSVUtils/
+	cp -rf $sourceDir4/vrm_cmake-$srcGitRev4/* $sourceDir/extlibs/vrm_cmake/
+	cp -rf $sourceDir5/SSVCMake-$srcGitRev5/* $sourceDir/extlibs/SSVMenuSystem/extlibs/SSVCMake/
+	cp -rf $sourceDir6/SSVStart-$srcGitRev6/* $sourceDir/extlibs/SSVStart/
+	cp -rf $sourceDir7/vrm_pp-$srcGitRev7/* $sourceDir/extlibs/vrm_pp/
+	cp -rf $sourceDir7/vrm_pp-$srcGitRev7/* $sourceDir/extlibs/SSVStart/extlibs/vrm_pp/
+	cp -rf $sourceDir7/vrm_pp-$srcGitRev7/* $sourceDir/extlibs/SSVUtils/extlibs/vrm_pp/
+
+	cp -rf $sourceDir3/SSVUtils-$srcGitRev3/* $sourceDir/extlibs/SSVMenuSystem/extlibs/SSVUtils/
+	cp -rf $sourceDir3/SSVUtils-$srcGitRev3/* $sourceDir/extlibs/SSVStart/extlibs/SSVUtils/
+	cp -rf $sourceDir4/vrm_cmake-$srcGitRev4/* $sourceDir/extlibs/SSVStart/extlibs/vrm_cmake/
+	cp -rf $sourceDir4/vrm_cmake-$srcGitRev4/* $sourceDir/extlibs/SSVUtils/extlibs/vrm_cmake/
+	cp -rf $sourceDir4/vrm_cmake-$srcGitRev4/* $sourceDir/extlibs/vrm_pp/extlibs/vrm_cmake/
+	cp -rf $sourceDir7/vrm_pp-$srcGitRev7/* $sourceDir/extlibs/SSVStart/extlibs/vrm_pp/
+	cp -rf $sourceDir7/vrm_pp-$srcGitRev7/* $sourceDir/extlibs/SSVUtils/extlibs/vrm_pp/
+
+
+	cd buildlx/
+	cmake .. \
+		-DCMAKE_BUILD_TYPE=Release
+	make $jobArgs
+	mv SSVOpenHexagon ../_RELEASE
+}
+
+INSTALL()
+{
+	mkdir -p $appsDir/openhexagon
+	cp -rf ./_RELEASE/* $appsDir/openhexagon/*
+
+	addAppDeskbarSymlink $appsDir/openhexagon/open_hexagon
+}
