@@ -1,0 +1,22 @@
+SUMMARY="Data for Open hexagon"
+DESCRIPTION="Data files for the game Open Hexagon"
+HOMEPAGE="https://openhexagon.org/"
+COPYRIGHT="2020 LukeMans"
+LICENSE="Open Hexagon Assets License"
+REVISION="1"
+SOURCE_URI="https://github.com/vittorioromeo/SSVOpenHexagonAssets/archive/master.zip"
+CHECKSUM_SHA256="c767809594f6472da9f56136e76657e38640d584164a46112250ac6293ecc0ea"
+SOURCE_DIR="SSVOpenHexagonAssets-master"
+
+ARCHITECTURES="any"
+DISABLE_SOURCE_PACKAGE="yes"
+
+PROVIDES="
+	openhexagon_data = $portVersion
+	"
+
+INSTALL()
+{
+	mkdir -p $appsDir/openhexagon/
+	cp -r * $appsDir/openhexagon/*
+}
