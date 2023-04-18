@@ -1,0 +1,139 @@
+From ce9bca69881b1457b1bb91785dd85d19ed2be109 Mon Sep 17 00:00:00 2001
+From: Julius Enriquez <win8linux@gmail.com>
+Date: Tue, 18 Apr 2023 01:37:57 +0800
+Subject: SDL path changes for Haiku
+
+
+diff --git a/BlockOut/Makefile b/BlockOut/Makefile
+index 0cdfa00..5debdc4 100644
+--- a/BlockOut/Makefile
++++ b/BlockOut/Makefile
+@@ -41,18 +41,14 @@ OBJ=    BlockOut.o         PageChooseSetup.o       PageStartGame.o \
+ 
+ ADD_LIBS = ../ImageLib/src/libimagelib.a
+ 
+-ifdef _linux64
+-SDL_LIBS = /usr/lib/x86_64-linux-gnu
+-else
+-SDL_LIBS = /usr/lib/i386-linux-gnu
+-endif
++SDL_LIBS = /system/lib/
+ 
+ CXX		= g++
+ 
+ ifdef _release
+ 
+-CXXFLAGS =     -O2 -Dlinux -c \
+-               -I/usr/include/SDL -I../ImageLib/src -I.
++CXXFLAGS =     -O2 -Dhaiku -c \
++               -I/system/develop/headers/SDL -I../ImageLib/src -I.
+ 
+ LFLAGS   =      -Wl,--strip-all \
+ 		$(ADD_LIBS) \
+@@ -61,8 +57,8 @@ LFLAGS   =      -Wl,--strip-all \
+ 
+ else
+ 
+-CXXFLAGS =     -g -D_DEBUG -Dlinux -c \
+-               -I/usr/include/SDL -I../ImageLib/src -I.
++CXXFLAGS =     -g -D_DEBUG -Dhaiku -c \
++               -I/system/develop/headers/SDL -I../ImageLib/src -I.
+ 
+ LFLAGS   =      -L $(SDL_LIBS) \
+ 		$(ADD_LIBS) \
+-- 
+2.37.3
+
+
+From 404826df8c2aaf218a39f88be427b7ec5bfddbf1 Mon Sep 17 00:00:00 2001
+From: Julius Enriquez <win8linux@gmail.com>
+Date: Tue, 18 Apr 2023 01:51:59 +0800
+Subject: Haiku flags for ImageLib
+
+
+diff --git a/ImageLib/src/Makefile b/ImageLib/src/Makefile
+index 848d611..7b51a0e 100644
+--- a/ImageLib/src/Makefile
++++ b/ImageLib/src/Makefile
+@@ -35,8 +35,8 @@ OBJ=    gif/gif.o CImage.o png/zlib/adler32.o png/zlib/compress.o \
+ CXX	= g++
+ CC	= gcc
+ 
+-CXXFLAGS    = -O2 -Dlinux -c -I.
+-CFLAGS      = -O2 -Dlinux -c -I.
++CXXFLAGS    = -O2 -Dhaiku -c -I.
++CFLAGS      = -O2 -Dhaiku -c -I.
+ 
+ 
+ #--------------------------------------------------------------------
+-- 
+2.37.3
+
+
+From 104d45b53db413f0dbd8da0c5bc066716aae7a21 Mon Sep 17 00:00:00 2001
+From: Julius Enriquez <win8linux@gmail.com>
+Date: Tue, 18 Apr 2023 21:21:01 +0800
+Subject: Remove -lasound and -ldl  LDFLAGS
+
+
+diff --git a/BlockOut/Makefile b/BlockOut/Makefile
+index 5debdc4..5f38851 100644
+--- a/BlockOut/Makefile
++++ b/BlockOut/Makefile
+@@ -52,8 +52,8 @@ CXXFLAGS =     -O2 -Dhaiku -c \
+ 
+ LFLAGS   =      -Wl,--strip-all \
+ 		$(ADD_LIBS) \
+-		-lSDL_mixer -lSDL -lasound \
+-		-lGL -lGLU -lpthread -lm -ldl
++		-lSDL_mixer -lSDL -lGL -lGLU \
++		-lpthread -lm
+ 
+ else
+ 
+@@ -62,8 +62,8 @@ CXXFLAGS =     -g -D_DEBUG -Dhaiku -c \
+ 
+ LFLAGS   =      -L $(SDL_LIBS) \
+ 		$(ADD_LIBS) \
+-		-lSDL_mixer -lSDL -lasound \
+-		-lGL -lGLU -lpthread -lm -ldl
++		-lSDL_mixer -lSDL -lGL -lGLU \
++		-lpthread -lm
+ 
+ endif
+ 
+-- 
+2.37.3
+
+
+From 91e3ba04b07b72555363de09aa34cf82c0c535f5 Mon Sep 17 00:00:00 2001
+From: Julius Enriquez <win8linux@gmail.com>
+Date: Tue, 18 Apr 2023 21:36:58 +0800
+Subject: Add -lnetwork LDFLAGS
+
+
+diff --git a/BlockOut/Makefile b/BlockOut/Makefile
+index 5f38851..921f3b8 100644
+--- a/BlockOut/Makefile
++++ b/BlockOut/Makefile
+@@ -53,7 +53,7 @@ CXXFLAGS =     -O2 -Dhaiku -c \
+ LFLAGS   =      -Wl,--strip-all \
+ 		$(ADD_LIBS) \
+ 		-lSDL_mixer -lSDL -lGL -lGLU \
+-		-lpthread -lm
++		-lpthread -lm -lnetwork
+ 
+ else
+ 
+@@ -63,7 +63,7 @@ CXXFLAGS =     -g -D_DEBUG -Dhaiku -c \
+ LFLAGS   =      -L $(SDL_LIBS) \
+ 		$(ADD_LIBS) \
+ 		-lSDL_mixer -lSDL -lGL -lGLU \
+-		-lpthread -lm
++		-lpthread -lm -lnetwork
+ 
+ endif
+ 
+-- 
+2.37.3
+
