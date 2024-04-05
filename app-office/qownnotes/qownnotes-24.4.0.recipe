@@ -1,0 +1,192 @@
+SUMMARY="Note-taking app with Markdown and Nextcloud support"
+DESCRIPTION="QOwnNotes is the open source notepad with Markdown \
+support and todo list manager for Haiku, GNU/Linux, macOS and \
+Windows, that works together with Nextcloud Notes and ownCloud Notes. \
+
+You are able to write down your thoughts with QOwnNotes and edit or \
+search for them later from your mobile device, like with Nextcloud \
+Notes for Android or the Nextcloud / ownCloud web-service.
+
+The notes are stored as plain text markdown files and are synced with \
+Nextcloud's/ownCloud's file sync functionality. Of course other \
+software, like Syncthing or Dropbox can be used too.
+
+If you like the concept of having notes accessible in plain text files, \
+like it is done in the Nextcloud / ownCloud notes apps to gain a maximum\
+ of freedom then QOwnNotes is for you.
+
+To manage your todo lists in the web and on your mobile devices, you \
+need to install the Tasks backend on Nextcloud or ownCloud.
+
+To get more on-line features for your notes, like versioning and trash \
+access, you might also want to install the QOwnNotesAPI app on your server.
+
+Features:
+
+* written in C++ and optimized for low resource consumption (no CPU and \
+memory-hungry Electron app)
+* multiple note folders can be used
+* you can use your existing text or markdown files, no need for an import\
+ most of the time
+* older versions of your notes can be restored from your Nextcloud / \
+ownCloud server (install QOwnNotesAPI on your server)
+* trashed notes can be restored from your Nextcloud / ownCloud server \
+(install QOwnNotesAPI on your server)
+  * there also is a local trash
+* sub-string searching of notes is possible and search results are \
+highlighted in the notes
+* application can be operated with customizable keyboard shortcuts
+* external changes of note files are watched (notes or note list are \
+reloaded)
+* differences between current note and externally changed note are shown \
+in a dialog
+* markdown highlighting of notes and a markdown preview
+* spellchecking support
+* tabbing support for editing notes
+* scripting support and an online script repository where you can install \
+scripts inside the application
+* notes are getting their name from the first line of the note text (just \
+like in the Nextcloud / ownCloud notes web-application) and the note text \
+files are automatically renamed, if the first line changes
+  * this feature can also be turned off, and you can use any filename you like
+* manage your Nextcloud / ownCloud todo lists (ownCloud tasks or Tasks \
+Plus / Calendar Plus)
+* create Nextcloud Deck cards and link to them in your notes
+* encryption of notes (AES-256 is built in, or you can use custom \
+encryption methods like Keybase.io or PGP)
+* dark mode theme support
+* all panels can be placed wherever you want, they can even float or stack \
+(fully dockable)
+* toolbars are fully customizable
+* support for freedesktop theme icons, so you can use QOwnNotes with your \
+native desktop icons and with your favorite dark desktop theme QOwnNotes \
+supports Freedesktop icon themes
+* support for hierarchical note tagging and note subfolders
+* support for sharing notes on your Nextcloud / ownCloud server
+* Vim mode
+* distraction free mode, full-screen mode, typewriter mode
+* Evernote (now with large files) and Joplin import
+* QOwnNotes is available in over 60 different languages like English, \
+German, French, Polish, Chinese, Japanese, Russian, Portuguese, \
+Hungarian, Dutch and Spanish
+"
+HOMEPAGE="https://www.qownnotes.org/"
+COPYRIGHT="2024 Patrizio Berkele"
+LICENSE="GNU GPL v2"
+REVISION="1"
+SOURCE_URI="https://github.com/pbek/QOwnNotes/releases/download/v$portVersion/qownnotes-$portVersion.tar.xz"
+CHECKSUM_SHA256="0ff7ef2a76bf3a57a9ee384f54f29d44c259e5d2a39437afa5e72d972304e8c0"
+SOURCE_FILENAME="QOwnNotes-$portVersion.tar.gz"
+SOURCE_DIR="QOwnNotes-$portVersion"
+# MD4C
+srcGitRev2="c64ee9ab326c53962b5bd8cca98c086461bbdd6b"
+SOURCE_URI_2="https://github.com/qownnotes/md4c/archive/$srcGitRev2.tar.gz"
+CHECKSUM_SHA256_2="d80c0db34b1ff798bc2cc16ff67e6bbd8e650c15e9a2a8b21ad0ef4c4f2b81e5"
+SOURCE_DIR_2="md4c-$srcGitRev2"
+# Qt Piwik/Matomo Tracker
+srcGitRev3="955a77443dcf3ecb99bb1b7e73408e2835672b32"
+SOURCE_URI_3="https://github.com/pbek/qt-piwik-tracker/archive/$srcGitRev3.tar.gz"
+CHECKSUM_SHA256_3="7ef6ce90b581ba06244eea42cef79511549d49b9e49daef478af68b85eb869cf"
+SOURCE_DIR_3="qt-piwik-tracker-$srcGitRev3"
+# QHotkey
+srcGitRev4="998c76c21bef8645802804d77e60a7dc8efcaf6f"
+SOURCE_URI_4="https://github.com/qownnotes/QHotkey/archive/$srcGitRev4.tar.gz"
+CHECKSUM_SHA256_4="71a5f307c4afa628c982c5e9dc82e7e2f34229ab6343d1d3fd00809a85863ef9"
+SOURCE_DIR_4="QHotkey-$srcGitRev4"
+# QKeySequenceWidget
+srcGitRev5="8cbb54a12f33e41bf7c4795405f4235db1ee8ff1"
+SOURCE_URI_5="https://github.com/pbek/qkeysequencewidget/archive/$srcGitRev5.tar.gz"
+CHECKSUM_SHA256_5="2f1c367915dfacee229f1d74152fa6799ee6baa4e27c255c668d392f9a6d6bf6"
+SOURCE_DIR_5="qkeysequencewidget-$srcGitRev5"
+# QMarkdownTextEdit
+srcGitRev6="e30c97859b2c208d76d7f520d51f47e7cc8a67e2"
+SOURCE_URI_6="https://github.com/pbek/qmarkdowntextedit/archive/$srcGitRev6.tar.gz"
+CHECKSUM_SHA256_6="2f1c367915dfacee229f1d74152fa6799ee6baa4e27c255c668d392f9a6d6bf6"
+SOURCE_DIR_6="qmarkdowntextedit-$srcGitRev6"
+# QtCSV
+srcGitRev7="ae15c33b066fea9373a07bed5dc898c10b45ce2a"
+SOURCE_URI_7="https://github.com/pbek/qtcsv/archive/$srcGitRev7.tar.gz"
+CHECKSUM_SHA256_7="f3cf2d77fb32fbdbc6a6487e5bad7499e96bea825d69cb85fa4aba46449b703b"
+SOURCE_DIR_7="qtcsv-$srcGitRev7"
+# Qt Toolbar Editor
+srcGitRev8="ca0728c9924c6464234f7e477aa9509293d0a324"
+SOURCE_URI_8="https://github.com/pbek/Qt-Toolbar-Editor/archive/$srcGitRev8.tar.gz"
+CHECKSUM_SHA256_8="34d8743e74617ade379887711ab9709831bd25d23c6d4ff29b207e0544ea6ad4"
+SOURCE_DIR_8="Qt-Toolbar-Editor-$srcGitRev8"
+
+
+ARCHITECTURES="!x86_gcc2 x86_64"
+SECONDARY_ARCHITECTURES="x86"
+
+PROVIDES="
+	qownnotes$secondaryArchSuffix = $portVersion
+	app:QOwnNotes$secondaryArchSuffix = $portVersion
+	"
+REQUIRES="
+	haiku$secondaryArchSuffix
+	aspell >= 0.60
+	lib:libcrypto$secondaryArchSuffix
+	lib:libiconv$secondaryArchSuffix
+	lib:libGL$secondaryArchSuffix
+	lib:libQt6Core$secondaryArchSuffix
+	lib:libQt6Core5Compat$secondaryArchSuffix
+	lib:libQt6Gui$secondaryArchSuffix
+	lib:libQt6Network$secondaryArchSuffix
+	lib:libQt6Svg$secondaryArchSuffix
+	lib:libQt6WebSockets$secondaryArchSuffix
+	lib:libQt6Widgets$secondaryArchSuffix
+	lib:libxcb$secondaryArchSuffix
+	lib:libz$secondaryArchSuffix
+	"
+BUILD_REQUIRES="
+	haiku${secondaryArchSuffix}_devel
+	devel:libaspell
+	devel:libiconv$secondaryArchSuffix
+	devel:libGL$secondaryArchSuffix
+	devel:libQt6Core$secondaryArchSuffix
+	devel:libQt6Core5Compat$secondaryArchSuffix
+	devel:libQt6Gui$secondaryArchSuffix
+	devel:libQt6Network$secondaryArchSuffix
+	devel:libQt6Svg$secondaryArchSuffix
+	devel:libQt6WebSockets$secondaryArchSuffix
+	devel:libQt6Widgets$secondaryArchSuffix
+	devel:libssl$secondaryArchSuffix
+	devel:libxcb$secondaryArchSuffix
+	devel:libz$secondaryArchSuffix
+	"
+BUILD_PREREQUIRES="
+	cmd:g++$secondaryArchSuffix
+	cmd:ld$secondaryArchSuffix
+	cmd:lrelease$secondaryArchSuffix >= 5
+	cmd:make
+	cmd:pkg_config$secondaryArchSuffix
+	cmd:qmake$secondaryArchSuffix >= 5
+	"
+
+BUILD()
+{
+	# Copy submodule libraries into appropriate directories
+	cp -r $sourceDir2/* src/libraries/md4c/
+	cp -r $sourceDir3/* src/libraries/piwiktracker/
+	cp -r $sourceDir4/* src/libraries/qhotkey/
+	cp -r $sourceDir5/* src/libraries/qkeysequencewidget/
+	cp -r $sourceDir6/* src/libraries/qmarkdowntextedit/
+	cp -r $sourceDir7/* src/libraries/qtcsv/
+	cp -r $sourceDir8/* src/libraries/qttoolbareditor/
+	
+	cd src
+	
+	# Build translations
+	lrelease QOwnNotes.pro
+	
+	qmake BINDIR=$appsDir DATADIR=$dataDir
+	make $jobArgs
+}
+
+INSTALL()
+{
+	mkdir $appsDir
+	mv ./qownnotes $appsDir/QOwnNotes
+
+	addAppDeskbarSymlink $appsDir/QOwnNotes
+}
